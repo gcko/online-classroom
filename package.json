@@ -1,0 +1,30 @@
+{
+  "name": "online-classroom",
+  "version": "1.0.0",
+  "private": true,
+  "proxy": "http://localhost:3333",
+  "scripts": {
+    "lint": "lerna run --parallel lint",
+    "start": "lerna run --parallel start",
+    "start:client": "yarn workspace @online-classroom/client start",
+    "start:server": "yarn workspace @online-classroom/server start",
+    "test": "yarn test:client && yarn test:server",
+    "test:client": "yarn workspace @online-classroom/client test --watchAll=false",
+    "test:server": "yarn workspace @online-classroom/server test"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "24.9.0",
+    "lerna": "^3.20.2",
+    "prettier": "^1.19.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
