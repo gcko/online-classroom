@@ -12,10 +12,10 @@
  *          id:
  *            type: string
  *            pattern: ^\d.*$
- *            description: unique ID for the room. Must be a string of digits only.
+ *            description: unique ID for the submission. Must be a string of digits only.
  *          text:
  *            type: string
- *            description: Name of the room.
+ *            description: Code submission as a string.
  *          roomId:
  *            type: string
  *            pattern: ^[0-9a-zA-Z]{8}$

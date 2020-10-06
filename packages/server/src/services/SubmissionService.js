@@ -35,18 +35,19 @@ class SubmissionService {
         subId = this.getLargestSubmissionId() + 1;
       }
       // Submissions need to be attached to an existing room
-      this.submissions[subId] = {
+      const newSubmission = {
         submissionId: subId,
         roomId,
         text: submission,
       };
+      this.submissions[subId] = newSubmission;
       // create or update the room's submissionId
       room.submissionId = subId;
       // fire event only if there is some submission
       if (submission !== '' && submission != null) {
         this.trigger('change:submission', this.submissions[subId]);
       }
-      return subId;
+      return newSubmission;
     }
     return false;
   }

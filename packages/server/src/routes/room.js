@@ -99,6 +99,16 @@ router.get('/', (req, res) => {
  *              schema:
  *                type: object
  *                $ref: '#/components/schemas/Room'
+ *        "404":
+ *          description: The supplied room ID does not exist
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    type: string
+ *                    description: The error message supplied from the server.
  */
 router.get('/:roomId', (req, res) => {
   const { roomId } = req.params;
@@ -107,8 +117,8 @@ router.get('/:roomId', (req, res) => {
   if (room) {
     res.send(room);
   } else {
-    // Room didn't exist
-    res.send({});
+    res.status(404);
+    return res.send({ error: `Room ${roomId} does not exist` });
   }
 });
 
@@ -135,6 +145,16 @@ router.get('/:roomId', (req, res) => {
  *              schema:
  *                type: object
  *                $ref: '#/components/schemas/Submission'
+ *        "404":
+ *          description: The supplied room ID or submission does not exist
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  error:
+ *                    type: string
+ *                    description: The error message supplied from the server.
  */
 router.get('/:roomId/submission', (req, res) => {
   const { roomId } = req.params;
@@ -147,7 +167,12 @@ router.get('/:roomId/submission', (req, res) => {
     res.send(submission);
   } else {
     // submission or room doesn't exist
-    res.send({});
+    res.status(404);
+    if (req.services.room.getRoom(roomId) == null) {
+      // Room did not exist
+      return res.send({ error: `Room ${roomId} does not exist` });
+    }
+    return res.send({ error: `Submission for ${roomId} does not exist` });
   }
 });
 
@@ -248,7 +273,7 @@ router.put('/:roomId', (req, res) => {
   res.send(status);
 });
 
-router.post('/:roomId/:role/decrement', req => {
+router.post('/:roomId/:role/decrement', (req) => {
   const { roomId, role } = req.params;
   req.services.room.decrementRoleAmount(roomId, role);
   // this is for navigator.sendBeacon;
