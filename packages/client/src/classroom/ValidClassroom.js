@@ -7,7 +7,7 @@ import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
 import Modal from '../common/Modal';
-import { ROLE_INSTRUCTOR, ROLE_STUDENT } from '../common/constants';
+import { API_ROOT, ROLE_INSTRUCTOR, ROLE_STUDENT } from '../common/constants';
 
 // Custom Dev Console output
 // https://github.com/iambenkay/js-ide/blob/master/index.html
@@ -155,7 +155,7 @@ function handleKeyboardShortcuts(on = true) {
 }
 
 async function getSubmission(roomId) {
-  const response = await fetch(`/api/rooms/${roomId}/submission`);
+  const response = await fetch(`${API_ROOT}rooms/${roomId}/submission`);
   const submission = await response.json();
   return submission;
 }
@@ -280,7 +280,7 @@ class ValidRoom extends React.Component {
     };
     document.getElementById('submit-code').innerText = 'Submitting...';
     await this.waitNSeconds(2);
-    const response = await fetch(`/api/submissions`, {
+    const response = await fetch(`${API_ROOT}submissions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

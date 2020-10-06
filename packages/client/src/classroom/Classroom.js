@@ -4,9 +4,10 @@ import './Classroom.sass';
 import Modal from '../common/Modal';
 import ValidRoom from './ValidClassroom';
 import { updateAttendance } from './common';
+import { API_ROOT } from '../common/constants';
 
 async function getRoom(roomId) {
-  const response = await fetch(`/api/rooms/${roomId}`);
+  const response = await fetch(`${API_ROOT}rooms/${roomId}`);
   const room = await response.json();
   return room;
 }

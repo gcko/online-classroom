@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap-icons';
 import pluralize from 'pluralize';
 import './Lobby.sass';
-import { ROLE_INSTRUCTOR, ROLE_STUDENT } from '../common/constants';
+import { ROLE_INSTRUCTOR, ROLE_STUDENT, API_ROOT } from '../common/constants';
 
 function DisabledCardContents() {
   return (
@@ -208,7 +208,7 @@ function Lobby(props) {
     // Specifically check if the roomId is a potentially valid roomId
     if (targetEl.id === 'room-id' && !targetEl.validity.patternMismatch) {
       const maybeRoomId = targetEl.value;
-      const response = await fetch(`/api/rooms/${maybeRoomId}`);
+      const response = await fetch(`${API_ROOT}rooms/${maybeRoomId}`);
       const data = await response.json();
       if ('id' in data) {
         // the room exists

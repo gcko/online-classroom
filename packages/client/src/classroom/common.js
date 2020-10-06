@@ -1,3 +1,4 @@
+import { API_ROOT } from '../common/constants';
 // eslint-disable-next-line import/prefer-default-export
 export async function updateAttendance(room, role, entering = true) {
   const { attendance } = room;
@@ -6,7 +7,7 @@ export async function updateAttendance(room, role, entering = true) {
       attendance[i].amount = entering ? 1 : 0;
     }
   }
-  const response = await fetch(`/api/rooms/${room.id}`, {
+  const response = await fetch(`${API_ROOT}rooms/${room.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
